@@ -1,7 +1,6 @@
 import {
   Clipboard,
   Detail,
-  getPreferenceValues,
   openCommandPreferences,
   showToast,
   Toast,
@@ -10,10 +9,6 @@ import { useAiUsageDashboardQuery } from "../hooks/useAiUsageDashboardQuery/useA
 import { renderErrorMarkdown } from "../lib/dashboardMarkdown/dashboardMarkdown";
 import { DashboardActions } from "./DashboardActions";
 import { UsageDashboardList } from "./UsageDashboardList";
-
-type Preferences = {
-  npxCommand: string;
-};
 
 const getErrorMarkdown = (error: unknown): string =>
   error &&
@@ -32,8 +27,7 @@ const getErrorRawJson = (error: unknown): string | undefined =>
     : undefined;
 
 export const AiUsageDashboardContent = () => {
-  const preferences = getPreferenceValues<Preferences>();
-  const query = useAiUsageDashboardQuery(preferences.npxCommand);
+  const query = useAiUsageDashboardQuery();
 
   const copyRawJson = async () => {
     const rawJson = query.data?.rawJson ?? getErrorRawJson(query.error);

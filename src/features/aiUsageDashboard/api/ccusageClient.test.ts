@@ -6,7 +6,7 @@ import {
 
 describe("createCcusageInvocation", () => {
   it("runs npx through a login shell so Raycast can resolve the user's PATH", () => {
-    const invocation = createCcusageInvocation("npx");
+    const invocation = createCcusageInvocation();
 
     expect(invocation.file).toBe("/bin/zsh");
     expect(invocation.args).toEqual([
@@ -17,7 +17,7 @@ describe("createCcusageInvocation", () => {
   });
 
   it("can create a blocks report invocation", () => {
-    const invocation = createCcusageInvocation("npx", "blocks");
+    const invocation = createCcusageInvocation("blocks");
 
     expect(invocation.args).toEqual([
       "-lc",

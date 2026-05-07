@@ -35,7 +35,6 @@ const blocksStdout = JSON.stringify({
 describe("loadAiUsageDashboardData", () => {
   it("loads daily and block data into dashboard state", async () => {
     const data = await loadAiUsageDashboardData({
-      npxCommand: "npx",
       runBlocks: async () => ({
         command: "npx ccusage@latest blocks --json",
         stdout: blocksStdout,
@@ -57,7 +56,6 @@ describe("loadAiUsageDashboardData", () => {
   it("throws a dashboard error with raw JSON when parsing fails", async () => {
     await expect(
       loadAiUsageDashboardData({
-        npxCommand: "npx",
         runBlocks: async () => ({
           command: "npx ccusage@latest blocks --json",
           stdout: blocksStdout,

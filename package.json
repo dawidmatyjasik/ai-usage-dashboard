@@ -11,17 +11,7 @@
       "name": "aiUsageDashboard",
       "title": "AI Usage Dashboard",
       "description": "Show Claude Code usage statistics from ccusage",
-      "mode": "view",
-      "preferences": [
-        {
-          "name": "npxCommand",
-          "title": "npx Command",
-          "description": "Command used to run ccusage without a global install.",
-          "type": "textfield",
-          "required": true,
-          "default": "npx"
-        }
-      ]
+      "mode": "view"
     }
   ],
   "dependencies": {

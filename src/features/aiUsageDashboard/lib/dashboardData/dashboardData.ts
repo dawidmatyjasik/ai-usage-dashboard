@@ -28,9 +28,8 @@ export type DashboardDataError = Error & {
 };
 
 type LoadAiUsageDashboardDataOptions = {
-  npxCommand: string;
-  runBlocks?: (npxCommand: string) => Promise<CcusageResult>;
-  runDaily?: (npxCommand: string) => Promise<CcusageResult>;
+  runBlocks?: () => Promise<CcusageResult>;
+  runDaily?: () => Promise<CcusageResult>;
 };
 
 const createDashboardDataError = (
@@ -47,13 +46,12 @@ const createDashboardDataError = (
 };
 
 export const loadAiUsageDashboardData = async ({
-  npxCommand,
   runBlocks = runCcusageBlocks,
   runDaily = runCcusageDaily,
-}: LoadAiUsageDashboardDataOptions): Promise<AiUsageDashboardData> => {
+}: LoadAiUsageDashboardDataOptions = {}): Promise<AiUsageDashboardData> => {
   const [dailyResult, blocksResult] = await Promise.all([
-    runDaily(npxCommand),
-    runBlocks(npxCommand),
+    runDaily(),
+    runBlocks(),
   ]);
   const rawJson = buildRawJson(dailyResult.stdout, blocksResult.stdout);
 

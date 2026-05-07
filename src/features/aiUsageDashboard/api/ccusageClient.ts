@@ -25,16 +25,14 @@ const shellQuote = (value: string): string =>
   `'${value.replaceAll("'", "'\\''")}'`;
 
 export const createCcusageInvocation = (
-  npxCommand: string,
   report: CcusageReport = "daily",
 ): CcusageInvocation => {
-  const command = npxCommand.trim() || "npx";
   const ccusageArgs = ["ccusage@latest", report, "--json"];
-  const commandText = `${command} ${ccusageArgs.join(" ")}`;
+  const commandText = `npx ${ccusageArgs.join(" ")}`;
 
   return {
     file: "/bin/zsh",
-    args: ["-lc", `${shellQuote(command)} ${ccusageArgs.join(" ")}`],
+    args: ["-lc", `${shellQuote("npx")} ${ccusageArgs.join(" ")}`],
     commandText,
   };
 };
@@ -64,10 +62,8 @@ export const normalizeCommandError = (
   return commandError;
 };
 
-export const runCcusageDaily = async (
-  npxCommand: string,
-): Promise<CcusageResult> => {
-  const invocation = createCcusageInvocation(npxCommand, "daily");
+export const runCcusageDaily = async (): Promise<CcusageResult> => {
+  const invocation = createCcusageInvocation("daily");
 
   try {
     const { stdout } = await execFileAsync(invocation.file, invocation.args, {
@@ -84,10 +80,8 @@ export const runCcusageDaily = async (
   }
 };
 
-export const runCcusageBlocks = async (
-  npxCommand: string,
-): Promise<CcusageResult> => {
-  const invocation = createCcusageInvocation(npxCommand, "blocks");
+export const runCcusageBlocks = async (): Promise<CcusageResult> => {
+  const invocation = createCcusageInvocation("blocks");
 
   try {
     const { stdout } = await execFileAsync(invocation.file, invocation.args, {
