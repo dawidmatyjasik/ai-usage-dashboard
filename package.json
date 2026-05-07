@@ -1,28 +1,28 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "raycast-ccusage",
-  "title": "Claude Code Usage",
-  "description": "View Claude Code usage and cost statistics from ccusage.",
-  "icon": "icon.png",
-  "author": "dawidspisak",
+  "name": "ai-usage-dashboard",
+  "title": "AI Usage Dashboard",
+  "description": "Track local AI coding usage, tokens, and costs across Claude Code, Codex, and AMP.",
+  "icon": "icon.svg",
+  "author": "Dawid Matyjasik",
   "license": "MIT",
   "commands": [
     {
       "name": "claudeUsageDashboard",
       "title": "Claude Usage",
-      "description": "Show Claude Code usage statistics from ccusage",
+      "description": "Show Claude Code usage statistics",
       "mode": "view"
     },
     {
       "name": "codexUsageDashboard",
       "title": "Codex Usage",
-      "description": "Show Codex usage statistics from @ccusage/codex",
+      "description": "Show Codex usage statistics",
       "mode": "view"
     },
     {
       "name": "ampUsageDashboard",
       "title": "AMP Usage",
-      "description": "Show AMP usage statistics from @ccusage/amp",
+      "description": "Show AMP usage statistics",
       "mode": "view"
     }
   ],
