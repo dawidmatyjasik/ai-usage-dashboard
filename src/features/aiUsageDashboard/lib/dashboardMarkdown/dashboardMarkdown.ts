@@ -90,7 +90,7 @@ ${renderCurrentBlock(currentBlock)}
 - **Cost:** ${formatCurrency(summary.today.costUSD)}
 - **Tokens:** ${formatTokens(summary.today.totalTokens)}
 
-## Month to Date
+## This Month
 
 - **Cost:** ${formatCurrency(summary.monthToDate.costUSD)}
 - **Tokens:** ${formatTokens(summary.monthToDate.totalTokens)}

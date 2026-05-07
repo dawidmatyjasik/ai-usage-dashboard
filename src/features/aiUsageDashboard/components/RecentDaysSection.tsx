@@ -4,7 +4,6 @@ import { renderDayDetail } from "../lib/dashboardDetail/dashboardDetail";
 import {
   formatCurrency,
   formatDate,
-  formatNumber,
 } from "../lib/formatUsageValue/formatUsageValue";
 import type { DailyUsage } from "../lib/usageSummary/usageSummary";
 
@@ -23,14 +22,8 @@ export const RecentDaysSection = ({
         key={day.date}
         id={`day-${day.date}`}
         title={formatDate(day.date)}
-        subtitle={
-          day.models.length > 0 ? day.models.join(", ") : "Unknown model"
-        }
         icon={{ source: Icon.Calendar, tintColor: Color.Blue }}
-        accessories={[
-          { text: formatCurrency(day.costUSD), tooltip: "Cost" },
-          { text: formatNumber(day.totalTokens), tooltip: "Tokens" },
-        ]}
+        accessories={[{ text: formatCurrency(day.costUSD), tooltip: "Cost" }]}
         detail={<List.Item.Detail markdown={renderDayDetail(day)} />}
         actions={actions}
       />

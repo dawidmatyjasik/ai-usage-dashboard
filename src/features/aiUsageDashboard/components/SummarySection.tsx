@@ -1,10 +1,7 @@
 import { Color, Icon, List } from "@raycast/api";
 import type { ReactNode } from "react";
 import { renderTotalsDetail } from "../lib/dashboardDetail/dashboardDetail";
-import {
-  formatCurrency,
-  formatNumber,
-} from "../lib/formatUsageValue/formatUsageValue";
+import { formatCurrency } from "../lib/formatUsageValue/formatUsageValue";
 import type { SummaryMetric } from "../lib/dashboardState/dashboardState";
 
 const metricIcon = {
@@ -25,11 +22,9 @@ export const SummarySection = ({ actions, metrics }: SummarySectionProps) => (
         key={metric.id}
         id={metric.id}
         title={metric.title}
-        subtitle={metric.subtitle}
         icon={metricIcon[metric.id]}
         accessories={[
           { text: formatCurrency(metric.totals.costUSD), tooltip: "Cost" },
-          { text: formatNumber(metric.totals.totalTokens), tooltip: "Tokens" },
         ]}
         detail={
           <List.Item.Detail

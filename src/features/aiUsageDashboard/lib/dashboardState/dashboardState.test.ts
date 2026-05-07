@@ -27,6 +27,7 @@ describe("createSummaryMetrics", () => {
       "monthToDate",
       "total",
     ]);
+    expect(metrics[1].title).toBe("This Month");
     expect(metrics[0].totals).toBe(summary.today);
   });
 });

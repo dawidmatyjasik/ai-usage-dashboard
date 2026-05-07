@@ -18,7 +18,7 @@ export const createSummaryMetrics = (
   },
   {
     id: "monthToDate",
-    title: "Month to Date",
+    title: "This Month",
     subtitle: "Current calendar month",
     totals: summary.monthToDate,
   },
