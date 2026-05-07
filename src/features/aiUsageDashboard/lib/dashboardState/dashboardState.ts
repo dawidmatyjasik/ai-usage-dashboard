@@ -1,22 +1,4 @@
-import type { BillingBlock } from "../billingBlockSummary/billingBlockSummary";
 import type { UsageSummary, UsageTotals } from "../usageSummary/usageSummary";
-
-export type DashboardState =
-  | {
-      status: "loading";
-      rawJson?: string;
-    }
-  | {
-      status: "ready";
-      summary: UsageSummary;
-      currentBlock?: BillingBlock;
-      rawJson: string;
-    }
-  | {
-      status: "error";
-      markdown: string;
-      rawJson?: string;
-    };
 
 export type SummaryMetric = {
   id: "today" | "monthToDate" | "total";
@@ -60,6 +42,3 @@ export const buildRawJson = (
     null,
     2,
   );
-
-export const getRawJson = (state: DashboardState): string | undefined =>
-  state.rawJson;

@@ -25,7 +25,8 @@
     }
   ],
   "dependencies": {
-    "@raycast/api": "latest"
+    "@raycast/api": "latest",
+    "@tanstack/react-query": "^5.100.9"
   },
   "devDependencies": {
     "@raycast/eslint-config": "latest",

@@ -1,10 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  buildRawJson,
-  createSummaryMetrics,
-  getRawJson,
-  type DashboardState,
-} from "./dashboardState";
+import { buildRawJson, createSummaryMetrics } from "./dashboardState";
 import type { UsageSummary } from "../usageSummary/usageSummary";
 
 const emptyTotals = {
@@ -47,16 +42,5 @@ describe("buildRawJson", () => {
       daily: { daily: [] },
       blocks: { blocks: [] },
     });
-  });
-});
-
-describe("getRawJson", () => {
-  it("returns raw JSON from any dashboard state that has it", () => {
-    const state: DashboardState = {
-      status: "loading",
-      rawJson: '{"daily":[]}',
-    };
-
-    expect(getRawJson(state)).toBe('{"daily":[]}');
   });
 });

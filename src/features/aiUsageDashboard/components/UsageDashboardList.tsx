@@ -3,27 +3,27 @@ import type { ReactNode } from "react";
 import { BillingSection } from "./BillingSection";
 import { RecentDaysSection } from "./RecentDaysSection";
 import { SummarySection } from "./SummarySection";
-import type { DashboardState } from "../lib/dashboardState/dashboardState";
 import { createSummaryMetrics } from "../lib/dashboardState/dashboardState";
+import type { AiUsageDashboardData } from "../lib/dashboardData/dashboardData";
 
 type UsageDashboardListProps = {
   actions: ReactNode;
-  state: DashboardState;
+  data?: AiUsageDashboardData;
+  isLoading: boolean;
 };
 
 export const UsageDashboardList = ({
   actions,
-  state,
+  data,
+  isLoading,
 }: UsageDashboardListProps) => {
-  const summaryMetrics =
-    state.status === "ready" ? createSummaryMetrics(state.summary) : [];
-  const recentDays = state.status === "ready" ? state.summary.recentDays : [];
-  const currentBlock =
-    state.status === "ready" ? state.currentBlock : undefined;
+  const summaryMetrics = data ? createSummaryMetrics(data.summary) : [];
+  const recentDays = data?.summary.recentDays ?? [];
+  const currentBlock = data?.currentBlock;
 
   return (
     <List
-      isLoading={state.status === "loading"}
+      isLoading={isLoading}
       isShowingDetail
       searchBarPlaceholder="Search usage metrics..."
     >
