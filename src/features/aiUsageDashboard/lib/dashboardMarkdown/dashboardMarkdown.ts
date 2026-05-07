@@ -1,5 +1,5 @@
-import type { BillingBlock } from "./billingBlockSummary";
-import type { DailyUsage, UsageSummary } from "./usageSummary";
+import type { BillingBlock } from "../billingBlockSummary/billingBlockSummary";
+import type { DailyUsage, UsageSummary } from "../usageSummary/usageSummary";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",

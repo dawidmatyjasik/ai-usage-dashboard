@@ -11,17 +11,20 @@ import { runCcusageBlocks, runCcusageDaily } from "../api/ccusageClient";
 import {
   parseBillingBlocks,
   summarizeCurrentBillingBlock,
-} from "../lib/billingBlockSummary";
+} from "../lib/billingBlockSummary/billingBlockSummary";
 import {
   renderErrorMarkdown,
   renderInvalidJsonMarkdown,
-} from "../lib/dashboardMarkdown";
+} from "../lib/dashboardMarkdown/dashboardMarkdown";
 import {
   buildRawJson,
   getRawJson,
   type DashboardState,
-} from "../lib/dashboardState";
-import { parseDailyUsage, summarizeDailyUsage } from "../lib/usageSummary";
+} from "../lib/dashboardState/dashboardState";
+import {
+  parseDailyUsage,
+  summarizeDailyUsage,
+} from "../lib/usageSummary/usageSummary";
 import { DashboardActions } from "./DashboardActions";
 import { UsageDashboardList } from "./UsageDashboardList";
 
@@ -76,7 +79,7 @@ export const AiUsageDashboardView = () => {
   }, [preferences.npxCommand]);
 
   useEffect(() => {
-    void loadUsage();
+    loadUsage();
   }, [loadUsage]);
 
   const copyRawJson = async () => {
@@ -99,9 +102,9 @@ export const AiUsageDashboardView = () => {
 
   const actions = (
     <DashboardActions
-      onCopyRawJson={() => void copyRawJson()}
-      onOpenPreferences={() => void openCommandPreferences()}
-      onRefresh={() => void loadUsage()}
+      onCopyRawJson={() => copyRawJson()}
+      onOpenPreferences={() => openCommandPreferences()}
+      onRefresh={() => loadUsage()}
     />
   );
 

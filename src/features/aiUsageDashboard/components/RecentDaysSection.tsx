@@ -1,12 +1,12 @@
 import { Color, Icon, List } from "@raycast/api";
 import type { ReactNode } from "react";
-import { renderDayDetail } from "../lib/dashboardDetail";
+import { renderDayDetail } from "../lib/dashboardDetail/dashboardDetail";
 import {
   formatCurrency,
   formatDate,
   formatNumber,
-} from "../lib/formatUsageValue";
-import type { DailyUsage } from "../lib/usageSummary";
+} from "../lib/formatUsageValue/formatUsageValue";
+import type { DailyUsage } from "../lib/usageSummary/usageSummary";
 
 type RecentDaysSectionProps = {
   actions: ReactNode;

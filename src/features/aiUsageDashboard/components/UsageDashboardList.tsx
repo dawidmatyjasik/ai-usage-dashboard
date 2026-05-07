@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import { BillingSection } from "./BillingSection";
 import { RecentDaysSection } from "./RecentDaysSection";
 import { SummarySection } from "./SummarySection";
-import type { DashboardState } from "../lib/dashboardState";
-import { createSummaryMetrics } from "../lib/dashboardState";
+import type { DashboardState } from "../lib/dashboardState/dashboardState";
+import { createSummaryMetrics } from "../lib/dashboardState/dashboardState";
 
 type UsageDashboardListProps = {
   actions: ReactNode;

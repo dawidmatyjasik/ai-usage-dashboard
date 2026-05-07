@@ -1,12 +1,12 @@
 import { Color, Icon, List } from "@raycast/api";
 import type { ReactNode } from "react";
-import type { BillingBlock } from "../lib/billingBlockSummary";
-import { renderBlockDetail } from "../lib/dashboardDetail";
+import type { BillingBlock } from "../lib/billingBlockSummary/billingBlockSummary";
+import { renderBlockDetail } from "../lib/dashboardDetail/dashboardDetail";
 import {
   formatCurrency,
   formatDuration,
   formatTime,
-} from "../lib/formatUsageValue";
+} from "../lib/formatUsageValue/formatUsageValue";
 
 type BillingSectionProps = {
   actions: ReactNode;

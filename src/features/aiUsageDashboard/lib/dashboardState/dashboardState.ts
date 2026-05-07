@@ -1,6 +1,5 @@
-import { Color, Icon } from "@raycast/api";
-import type { BillingBlock } from "./billingBlockSummary";
-import type { UsageSummary, UsageTotals } from "./usageSummary";
+import type { BillingBlock } from "../billingBlockSummary/billingBlockSummary";
+import type { UsageSummary, UsageTotals } from "../usageSummary/usageSummary";
 
 export type DashboardState =
   | {
@@ -20,12 +19,10 @@ export type DashboardState =
     };
 
 export type SummaryMetric = {
-  id: string;
+  id: "today" | "monthToDate" | "total";
   title: string;
   subtitle: string;
   totals: UsageTotals;
-  icon: Icon;
-  color: Color;
 };
 
 export const createSummaryMetrics = (
@@ -36,24 +33,18 @@ export const createSummaryMetrics = (
     title: "Today",
     subtitle: "Current local day",
     totals: summary.today,
-    icon: Icon.Calendar,
-    color: Color.Blue,
   },
   {
     id: "monthToDate",
     title: "Month to Date",
     subtitle: "Current calendar month",
     totals: summary.monthToDate,
-    icon: Icon.BarChart,
-    color: Color.Purple,
   },
   {
     id: "total",
     title: "Total Returned",
     subtitle: "All rows returned by ccusage",
     totals: summary.total,
-    icon: Icon.Coins,
-    color: Color.Green,
   },
 ];
 

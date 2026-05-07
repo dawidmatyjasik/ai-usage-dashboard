@@ -1,8 +1,17 @@
-import { List } from "@raycast/api";
+import { Color, Icon, List } from "@raycast/api";
 import type { ReactNode } from "react";
-import { renderTotalsDetail } from "../lib/dashboardDetail";
-import { formatCurrency, formatNumber } from "../lib/formatUsageValue";
-import type { SummaryMetric } from "../lib/dashboardState";
+import { renderTotalsDetail } from "../lib/dashboardDetail/dashboardDetail";
+import {
+  formatCurrency,
+  formatNumber,
+} from "../lib/formatUsageValue/formatUsageValue";
+import type { SummaryMetric } from "../lib/dashboardState/dashboardState";
+
+const metricIcon = {
+  today: { source: Icon.Calendar, tintColor: Color.Blue },
+  monthToDate: { source: Icon.BarChart, tintColor: Color.Purple },
+  total: { source: Icon.Coins, tintColor: Color.Green },
+} satisfies Record<SummaryMetric["id"], { source: Icon; tintColor: Color }>;
 
 type SummarySectionProps = {
   actions: ReactNode;
@@ -17,7 +26,7 @@ export const SummarySection = ({ actions, metrics }: SummarySectionProps) => (
         id={metric.id}
         title={metric.title}
         subtitle={metric.subtitle}
-        icon={{ source: metric.icon, tintColor: metric.color }}
+        icon={metricIcon[metric.id]}
         accessories={[
           { text: formatCurrency(metric.totals.costUSD), tooltip: "Cost" },
           { text: formatNumber(metric.totals.totalTokens), tooltip: "Tokens" },

@@ -1,12 +1,12 @@
-import type { BillingBlock } from "./billingBlockSummary";
+import type { BillingBlock } from "../billingBlockSummary/billingBlockSummary";
 import {
   formatCurrency,
   formatDate,
   formatDuration,
   formatNumber,
   formatTime,
-} from "./formatUsageValue";
-import type { DailyUsage, UsageTotals } from "./usageSummary";
+} from "../formatUsageValue/formatUsageValue";
+import type { DailyUsage, UsageTotals } from "../usageSummary/usageSummary";
 
 export const renderTotalsDetail = (
   title: string,
