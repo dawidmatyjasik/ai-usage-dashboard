@@ -15,6 +15,16 @@ describe("createCcusageInvocation", () => {
     ]);
     expect(invocation.commandText).toBe("npx ccusage@latest daily --json");
   });
+
+  it("can create a blocks report invocation", () => {
+    const invocation = createCcusageInvocation("npx", "blocks");
+
+    expect(invocation.args).toEqual([
+      "-lc",
+      "'npx' ccusage@latest blocks --json",
+    ]);
+    expect(invocation.commandText).toBe("npx ccusage@latest blocks --json");
+  });
 });
 
 describe("normalizeCommandError", () => {

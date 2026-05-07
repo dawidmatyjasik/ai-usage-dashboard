@@ -9,12 +9,16 @@ import {
   Toast,
 } from "@raycast/api";
 import { useCallback, useEffect, useState } from "react";
-import { runCcusageDaily } from "../api/ccusageClient";
+import { runCcusageBlocks, runCcusageDaily } from "../api/ccusageClient";
 import {
   renderDashboardMarkdown,
   renderErrorMarkdown,
   renderInvalidJsonMarkdown,
 } from "../lib/dashboardMarkdown";
+import {
+  parseBillingBlocks,
+  summarizeCurrentBillingBlock,
+} from "../lib/billingBlockSummary";
 import { parseDailyUsage, summarizeDailyUsage } from "../lib/usageSummary";
 
 type Preferences = {
@@ -41,24 +45,36 @@ export const AiUsageDashboardView = () => {
     }));
 
     try {
-      const result = await runCcusageDaily(preferences.npxCommand);
+      const [dailyResult, blocksResult] = await Promise.all([
+        runCcusageDaily(preferences.npxCommand),
+        runCcusageBlocks(preferences.npxCommand),
+      ]);
 
       try {
-        const rows = parseDailyUsage(result.stdout);
+        const rows = parseDailyUsage(dailyResult.stdout);
         const summary = summarizeDailyUsage(rows);
+        const blocks = parseBillingBlocks(blocksResult.stdout);
+        const currentBlock = summarizeCurrentBillingBlock(blocks);
         setState({
           isLoading: false,
-          markdown: renderDashboardMarkdown(summary),
-          rawJson: result.stdout,
+          markdown: renderDashboardMarkdown(summary, currentBlock),
+          rawJson: JSON.stringify(
+            {
+              daily: JSON.parse(dailyResult.stdout),
+              blocks: JSON.parse(blocksResult.stdout),
+            },
+            null,
+            2,
+          ),
         });
       } catch (error) {
         setState({
           isLoading: false,
           markdown: renderInvalidJsonMarkdown(
-            result.stdout,
+            `${dailyResult.stdout}\n\n${blocksResult.stdout}`,
             error instanceof Error ? error : new Error("Unknown parser error"),
           ),
-          rawJson: result.stdout,
+          rawJson: `${dailyResult.stdout}\n\n${blocksResult.stdout}`,
         });
       }
     } catch (error) {

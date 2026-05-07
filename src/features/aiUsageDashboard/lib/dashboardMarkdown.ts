@@ -1,3 +1,4 @@
+import type { BillingBlock } from "./billingBlockSummary";
 import type { DailyUsage, UsageSummary } from "./usageSummary";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
@@ -21,13 +22,68 @@ const renderDayRow = (day: DailyUsage): string => {
   return `| ${day.date} | ${formatCurrency(day.costUSD)} | ${formatTokens(day.totalTokens)} | ${models} |`;
 };
 
-export const renderDashboardMarkdown = (summary: UsageSummary): string => {
+const formatDuration = (minutes: number): string => {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+
+  return hours > 0 ? `${hours}h ${remainingMinutes}m` : `${remainingMinutes}m`;
+};
+
+const formatLocalTime = (value: string): string => {
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime())
+    ? "Unknown"
+    : date.toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+};
+
+const renderCurrentBlock = (currentBlock?: BillingBlock): string => {
+  if (!currentBlock) {
+    return `## Current 5-Hour Block
+
+No active billing block found.
+`;
+  }
+
+  const models =
+    currentBlock.models.length > 0
+      ? currentBlock.models.join(", ")
+      : "Unknown model";
+  const projection = currentBlock.projectedCostUSD
+    ? `- **Projected Cost:** ${formatCurrency(currentBlock.projectedCostUSD)}\n`
+    : "";
+  const burnRate = currentBlock.costPerHourUSD
+    ? `- **Burn Rate:** ${formatCurrency(currentBlock.costPerHourUSD)}/hour\n`
+    : "";
+  const remaining = currentBlock.remainingMinutes
+    ? `- **Remaining:** ${formatDuration(currentBlock.remainingMinutes)}\n`
+    : "";
+
+  return `## Current 5-Hour Block
+
+- **Window:** ${formatLocalTime(currentBlock.startTime)} - ${formatLocalTime(currentBlock.endTime)}
+- **Cost:** ${formatCurrency(currentBlock.costUSD)}
+${projection}${burnRate}${remaining}- **Tokens:** ${formatTokens(currentBlock.totalTokens)}
+- **Entries:** ${formatTokens(currentBlock.entries)}
+- **Models:** ${models}
+`;
+};
+
+export const renderDashboardMarkdown = (
+  summary: UsageSummary,
+  currentBlock?: BillingBlock,
+): string => {
   const recentRows =
     summary.recentDays.length > 0
       ? summary.recentDays.map(renderDayRow).join("\n")
       : "| No usage found | $0.00 | 0 | - |";
 
   return `# Claude Code Usage
+
+${renderCurrentBlock(currentBlock)}
 
 ## Today
 

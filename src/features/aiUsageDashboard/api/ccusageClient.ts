@@ -19,14 +19,17 @@ export type CcusageInvocation = {
   commandText: string;
 };
 
+export type CcusageReport = "daily" | "blocks";
+
 const shellQuote = (value: string): string =>
   `'${value.replaceAll("'", "'\\''")}'`;
 
 export const createCcusageInvocation = (
   npxCommand: string,
+  report: CcusageReport = "daily",
 ): CcusageInvocation => {
   const command = npxCommand.trim() || "npx";
-  const ccusageArgs = ["ccusage@latest", "daily", "--json"];
+  const ccusageArgs = ["ccusage@latest", report, "--json"];
   const commandText = `${command} ${ccusageArgs.join(" ")}`;
 
   return {
@@ -64,7 +67,27 @@ export const normalizeCommandError = (
 export const runCcusageDaily = async (
   npxCommand: string,
 ): Promise<CcusageResult> => {
-  const invocation = createCcusageInvocation(npxCommand);
+  const invocation = createCcusageInvocation(npxCommand, "daily");
+
+  try {
+    const { stdout } = await execFileAsync(invocation.file, invocation.args, {
+      timeout: 30000,
+      maxBuffer: 1024 * 1024 * 10,
+    });
+
+    return {
+      command: invocation.commandText,
+      stdout,
+    };
+  } catch (error) {
+    throw normalizeCommandError(invocation.commandText, error);
+  }
+};
+
+export const runCcusageBlocks = async (
+  npxCommand: string,
+): Promise<CcusageResult> => {
+  const invocation = createCcusageInvocation(npxCommand, "blocks");
 
   try {
     const { stdout } = await execFileAsync(invocation.file, invocation.args, {
