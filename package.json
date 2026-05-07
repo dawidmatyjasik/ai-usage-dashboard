@@ -8,9 +8,15 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "aiUsageDashboard",
-      "title": "AI Usage Dashboard",
+      "name": "claudeUsageDashboard",
+      "title": "Claude Usage Dashboard",
       "description": "Show Claude Code usage statistics from ccusage",
+      "mode": "view"
+    },
+    {
+      "name": "codexUsageDashboard",
+      "title": "Codex Usage Dashboard",
+      "description": "Show Codex usage statistics from @ccusage/codex",
       "mode": "view"
     }
   ],
