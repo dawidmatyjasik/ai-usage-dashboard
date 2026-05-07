@@ -9,14 +9,20 @@
   "commands": [
     {
       "name": "claudeUsageDashboard",
-      "title": "Claude Usage Dashboard",
+      "title": "Claude Usage",
       "description": "Show Claude Code usage statistics from ccusage",
       "mode": "view"
     },
     {
       "name": "codexUsageDashboard",
-      "title": "Codex Usage Dashboard",
+      "title": "Codex Usage",
       "description": "Show Codex usage statistics from @ccusage/codex",
+      "mode": "view"
+    },
+    {
+      "name": "ampUsageDashboard",
+      "title": "AMP Usage",
+      "description": "Show AMP usage statistics from @ccusage/amp",
       "mode": "view"
     }
   ],

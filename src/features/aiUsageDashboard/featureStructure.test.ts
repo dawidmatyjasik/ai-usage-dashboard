@@ -5,7 +5,8 @@ import { describe, expect, it } from "vitest";
 const featureRoot = __dirname;
 
 describe("aiUsageDashboard feature structure", () => {
-  it("keeps provider-specific code in claude and codex folders", () => {
+  it("keeps provider-specific code in separate folders", () => {
+    expect(existsSync(join(featureRoot, "amp"))).toBe(true);
     expect(existsSync(join(featureRoot, "claude"))).toBe(true);
     expect(existsSync(join(featureRoot, "codex"))).toBe(true);
     expect(existsSync(join(featureRoot, "common"))).toBe(true);
