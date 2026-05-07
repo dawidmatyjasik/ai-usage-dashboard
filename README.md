@@ -1,4 +1,4 @@
-![AI Usage Dashboard preview](assets/preview.png)
+![AI Usage Dashboard preview](metadata/ai-usage-dashboard-1.png)
 
 # AI Usage Dashboard
 
