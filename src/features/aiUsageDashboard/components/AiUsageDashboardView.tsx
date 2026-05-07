@@ -1,6 +1,4 @@
 import {
-  Action,
-  ActionPanel,
   Clipboard,
   Detail,
   getPreferenceValues,
@@ -11,37 +9,34 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { runCcusageBlocks, runCcusageDaily } from "../api/ccusageClient";
 import {
-  renderDashboardMarkdown,
+  parseBillingBlocks,
+  summarizeCurrentBillingBlock,
+} from "../lib/billingBlockSummary";
+import {
   renderErrorMarkdown,
   renderInvalidJsonMarkdown,
 } from "../lib/dashboardMarkdown";
 import {
-  parseBillingBlocks,
-  summarizeCurrentBillingBlock,
-} from "../lib/billingBlockSummary";
+  buildRawJson,
+  getRawJson,
+  type DashboardState,
+} from "../lib/dashboardState";
 import { parseDailyUsage, summarizeDailyUsage } from "../lib/usageSummary";
+import { DashboardActions } from "./DashboardActions";
+import { UsageDashboardList } from "./UsageDashboardList";
 
 type Preferences = {
   npxCommand: string;
 };
 
-type ViewState = {
-  isLoading: boolean;
-  markdown: string;
-  rawJson?: string;
-};
-
 export const AiUsageDashboardView = () => {
   const preferences = getPreferenceValues<Preferences>();
-  const [state, setState] = useState<ViewState>({
-    isLoading: true,
-    markdown: "# Loading Claude Code Usage...",
-  });
+  const [state, setState] = useState<DashboardState>({ status: "loading" });
 
   const loadUsage = useCallback(async () => {
     setState((current) => ({
-      ...current,
-      isLoading: true,
+      status: "loading",
+      rawJson: getRawJson(current),
     }));
 
     try {
@@ -55,21 +50,16 @@ export const AiUsageDashboardView = () => {
         const summary = summarizeDailyUsage(rows);
         const blocks = parseBillingBlocks(blocksResult.stdout);
         const currentBlock = summarizeCurrentBillingBlock(blocks);
+
         setState({
-          isLoading: false,
-          markdown: renderDashboardMarkdown(summary, currentBlock),
-          rawJson: JSON.stringify(
-            {
-              daily: JSON.parse(dailyResult.stdout),
-              blocks: JSON.parse(blocksResult.stdout),
-            },
-            null,
-            2,
-          ),
+          status: "ready",
+          summary,
+          currentBlock,
+          rawJson: buildRawJson(dailyResult.stdout, blocksResult.stdout),
         });
       } catch (error) {
         setState({
-          isLoading: false,
+          status: "error",
           markdown: renderInvalidJsonMarkdown(
             `${dailyResult.stdout}\n\n${blocksResult.stdout}`,
             error instanceof Error ? error : new Error("Unknown parser error"),
@@ -79,7 +69,7 @@ export const AiUsageDashboardView = () => {
       }
     } catch (error) {
       setState({
-        isLoading: false,
+        status: "error",
         markdown: renderErrorMarkdown(error),
       });
     }
@@ -90,7 +80,9 @@ export const AiUsageDashboardView = () => {
   }, [loadUsage]);
 
   const copyRawJson = async () => {
-    if (!state.rawJson) {
+    const rawJson = getRawJson(state);
+
+    if (!rawJson) {
       await showToast({
         style: Toast.Style.Failure,
         title: "No JSON to copy",
@@ -98,35 +90,24 @@ export const AiUsageDashboardView = () => {
       return;
     }
 
-    await Clipboard.copy(state.rawJson);
+    await Clipboard.copy(rawJson);
     await showToast({
       style: Toast.Style.Success,
       title: "Copied ccusage JSON",
     });
   };
 
-  return (
-    <Detail
-      isLoading={state.isLoading}
-      markdown={state.markdown}
-      actions={
-        <ActionPanel>
-          <Action
-            title="Refresh"
-            onAction={() => void loadUsage()}
-            shortcut={{ modifiers: ["cmd"], key: "r" }}
-          />
-          <Action
-            title="Copy Raw JSON"
-            onAction={() => void copyRawJson()}
-            shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
-          />
-          <Action
-            title="Open Preferences"
-            onAction={() => void openCommandPreferences()}
-          />
-        </ActionPanel>
-      }
+  const actions = (
+    <DashboardActions
+      onCopyRawJson={() => void copyRawJson()}
+      onOpenPreferences={() => void openCommandPreferences()}
+      onRefresh={() => void loadUsage()}
     />
   );
+
+  if (state.status === "error") {
+    return <Detail markdown={state.markdown} actions={actions} />;
+  }
+
+  return <UsageDashboardList actions={actions} state={state} />;
 };
