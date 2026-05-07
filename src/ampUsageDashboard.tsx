@@ -1,1 +1,1 @@
-export { AmpUsageDashboardView as default } from "./features/aiUsageDashboard/amp/components/AmpUsageDashboardView";
+export { AmpUsageDashboardView as default } from "./features/amp/components/AmpUsageDashboardView";

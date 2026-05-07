@@ -1,1 +1,1 @@
-export { CodexUsageDashboardView as default } from "./features/aiUsageDashboard/codex/components/CodexUsageDashboardView";
+export { CodexUsageDashboardView as default } from "./features/codex/components/CodexUsageDashboardView";

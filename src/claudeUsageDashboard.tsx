@@ -1,1 +1,1 @@
-export { AiUsageDashboardView as default } from "./features/aiUsageDashboard/claude/components/AiUsageDashboardView";
+export { AiUsageDashboardView as default } from "./features/claude/components/AiUsageDashboardView";
