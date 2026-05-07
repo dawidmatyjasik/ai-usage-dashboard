@@ -68,10 +68,9 @@ export const ClaudeUsageDashboardContent = () => {
       data={query.data}
       isLoading={query.isPending || query.isFetching}
     >
-      <BillingSection
-        actions={actions}
-        currentBlock={query.data?.currentBlock}
-      />
+      {query.data?.currentBlock && (
+        <BillingSection actions={actions} currentBlock={query.data.currentBlock} />
+      )}
     </UsageDashboardList>
   );
 };
