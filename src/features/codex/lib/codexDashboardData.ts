@@ -35,7 +35,7 @@ export const loadCodexUsageDashboardData = async ({
     throw createDashboardDataError(
       error,
       rawJson,
-      "npx @ccusage/codex@latest daily --json",
+      "@ccusage/codex daily --json",
       "@ccusage/codex",
     );
   }

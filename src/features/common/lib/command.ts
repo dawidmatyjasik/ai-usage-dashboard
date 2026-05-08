@@ -1,3 +1,5 @@
+import path from "node:path";
+
 export type CcusageResult = {
   command: string;
   stdout: string;
@@ -8,8 +10,34 @@ export type CcusageCommandError = Error & {
   stderr?: string;
 };
 
-export const shellQuote = (value: string): string =>
-  `'${value.replaceAll("'", "'\\''")}'`;
+export type PackageInvocation = {
+  file: string;
+  args: string[];
+  commandText: string;
+};
+
+export const createPackageInvocation = (
+  packageName: string,
+  args: string[],
+): PackageInvocation => {
+  const extensionRoot =
+    process.env.VITEST_WORKER_ID === undefined ? __dirname : process.cwd();
+  const cliEntrypoint = path.join(
+    extensionRoot,
+    "assets",
+    ".generated",
+    "ccusage-cli",
+    packageName,
+    "dist",
+    "index.js",
+  );
+
+  return {
+    file: process.execPath,
+    args: [cliEntrypoint, ...args],
+    commandText: `${packageName} ${args.join(" ")}`,
+  };
+};
 
 export const normalizeCommandError = (
   commandText: string,

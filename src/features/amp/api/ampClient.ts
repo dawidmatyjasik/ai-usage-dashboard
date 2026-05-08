@@ -1,29 +1,18 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import {
+  createPackageInvocation,
   normalizeCommandError,
-  shellQuote,
   type CcusageResult,
+  type PackageInvocation,
 } from "../../common/lib/command";
 
 const execFileAsync = promisify(execFile);
 
-export type AmpInvocation = {
-  file: string;
-  args: string[];
-  commandText: string;
-};
+export type AmpInvocation = PackageInvocation;
 
-export const createAmpInvocation = (): AmpInvocation => {
-  const ampArgs = ["@ccusage/amp@latest", "daily", "--json"];
-  const commandText = `npx ${ampArgs.join(" ")}`;
-
-  return {
-    file: "/bin/zsh",
-    args: ["-lc", `${shellQuote("npx")} ${ampArgs.join(" ")}`],
-    commandText,
-  };
-};
+export const createAmpInvocation = (): AmpInvocation =>
+  createPackageInvocation("@ccusage/amp", ["daily", "--json"]);
 
 export const runAmpDaily = async (): Promise<CcusageResult> => {
   const invocation = createAmpInvocation();

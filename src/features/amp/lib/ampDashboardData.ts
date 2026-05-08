@@ -35,7 +35,7 @@ export const loadAmpUsageDashboardData = async ({
     throw createDashboardDataError(
       error,
       rawJson,
-      "npx @ccusage/amp@latest daily --json",
+      "@ccusage/amp daily --json",
       "@ccusage/amp",
     );
   }

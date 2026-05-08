@@ -5,25 +5,26 @@ import {
 } from "./ccusageClient";
 
 describe("createCcusageInvocation", () => {
-  it("runs npx through a login shell so Raycast can resolve the user's PATH", () => {
+  it("runs the installed ccusage package with the current Node executable", () => {
     const invocation = createCcusageInvocation();
 
-    expect(invocation.file).toBe("/bin/zsh");
-    expect(invocation.args).toEqual([
-      "-lc",
-      "'npx' ccusage@latest daily --json",
-    ]);
-    expect(invocation.commandText).toBe("npx ccusage@latest daily --json");
+    expect(invocation.file).toBe(process.execPath);
+    expect(invocation.args[0]).toMatch(
+      /assets\/\.generated\/ccusage-cli\/ccusage\/dist\/index\.js$/,
+    );
+    expect(invocation.args.slice(1)).toEqual(["daily", "--json"]);
+    expect(invocation.commandText).toBe("ccusage daily --json");
   });
 
   it("can create a blocks report invocation", () => {
     const invocation = createCcusageInvocation("blocks");
 
-    expect(invocation.args).toEqual([
-      "-lc",
-      "'npx' ccusage@latest blocks --json",
-    ]);
-    expect(invocation.commandText).toBe("npx ccusage@latest blocks --json");
+    expect(invocation.file).toBe(process.execPath);
+    expect(invocation.args[0]).toMatch(
+      /assets\/\.generated\/ccusage-cli\/ccusage\/dist\/index\.js$/,
+    );
+    expect(invocation.args.slice(1)).toEqual(["blocks", "--json"]);
+    expect(invocation.commandText).toBe("ccusage blocks --json");
   });
 });
 
@@ -34,7 +35,7 @@ describe("normalizeCommandError", () => {
     });
 
     const error = normalizeCommandError(
-      "npx ccusage@latest daily --json",
+      "ccusage daily --json",
       cause,
     );
 

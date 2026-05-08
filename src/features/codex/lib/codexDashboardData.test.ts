@@ -5,7 +5,7 @@ describe("loadCodexUsageDashboardData", () => {
   it("loads Codex daily data without a billing block", async () => {
     const data = await loadCodexUsageDashboardData({
       runDaily: async () => ({
-        command: "npx @ccusage/codex@latest daily --json",
+        command: "@ccusage/codex daily --json",
         stdout: JSON.stringify({
           daily: [
             {

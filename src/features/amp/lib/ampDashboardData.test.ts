@@ -5,7 +5,7 @@ describe("loadAmpUsageDashboardData", () => {
   it("loads AMP daily data", async () => {
     const data = await loadAmpUsageDashboardData({
       runDaily: async () => ({
-        command: "npx @ccusage/amp@latest daily --json",
+        command: "@ccusage/amp daily --json",
         stdout: JSON.stringify({
           daily: [
             {
