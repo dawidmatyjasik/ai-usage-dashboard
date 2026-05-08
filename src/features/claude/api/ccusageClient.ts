@@ -20,8 +20,7 @@ export type CcusageReport = "daily" | "blocks";
 
 export const createCcusageInvocation = (
   report: CcusageReport = "daily",
-): CcusageInvocation =>
-  createPackageInvocation("ccusage", [report, "--json"]);
+): CcusageInvocation => createPackageInvocation("ccusage", [report, "--json"]);
 
 export const runCcusageDaily = async (): Promise<CcusageResult> => {
   const invocation = createCcusageInvocation("daily");

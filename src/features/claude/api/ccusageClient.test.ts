@@ -34,10 +34,7 @@ describe("normalizeCommandError", () => {
       stderr: "",
     });
 
-    const error = normalizeCommandError(
-      "ccusage daily --json",
-      cause,
-    );
+    const error = normalizeCommandError("ccusage daily --json", cause);
 
     expect(error.stderr).toBe("spawn npx ENOENT");
   });
