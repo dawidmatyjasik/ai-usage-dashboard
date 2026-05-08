@@ -10,7 +10,7 @@ describe("createCcusageInvocation", () => {
 
     expect(invocation.file).toBe(process.execPath);
     expect(invocation.args[0]).toMatch(
-      /assets\/vendor\/ccusage\/dist\/index\.js$/,
+      /assets\/\.generated\/ccusage-cli\/ccusage\/dist\/index\.js$/,
     );
     expect(invocation.args.slice(1)).toEqual(["daily", "--json"]);
     expect(invocation.commandText).toBe("ccusage daily --json");
@@ -21,7 +21,7 @@ describe("createCcusageInvocation", () => {
 
     expect(invocation.file).toBe(process.execPath);
     expect(invocation.args[0]).toMatch(
-      /assets\/vendor\/ccusage\/dist\/index\.js$/,
+      /assets\/\.generated\/ccusage-cli\/ccusage\/dist\/index\.js$/,
     );
     expect(invocation.args.slice(1)).toEqual(["blocks", "--json"]);
     expect(invocation.commandText).toBe("ccusage blocks --json");

@@ -25,7 +25,8 @@ export const createPackageInvocation = (
   const cliEntrypoint = path.join(
     extensionRoot,
     "assets",
-    "vendor",
+    ".generated",
+    "ccusage-cli",
     packageName,
     "dist",
     "index.js",
