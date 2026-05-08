@@ -6,7 +6,9 @@ describe("createAmpInvocation", () => {
     const invocation = createAmpInvocation();
 
     expect(invocation.file).toBe(process.execPath);
-    expect(invocation.args[0]).toMatch(/@ccusage\/amp\/dist\/index\.js$/);
+    expect(invocation.args[0]).toMatch(
+      /assets\/vendor\/@ccusage\/amp\/dist\/index\.js$/,
+    );
     expect(invocation.args.slice(1)).toEqual(["daily", "--json"]);
     expect(invocation.commandText).toBe("@ccusage/amp daily --json");
   });

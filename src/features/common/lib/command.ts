@@ -1,3 +1,5 @@
+import path from "node:path";
+
 export type CcusageResult = {
   command: string;
   stdout: string;
@@ -18,7 +20,16 @@ export const createPackageInvocation = (
   packageName: string,
   args: string[],
 ): PackageInvocation => {
-  const cliEntrypoint = require.resolve(packageName);
+  const extensionRoot =
+    process.env.VITEST_WORKER_ID === undefined ? __dirname : process.cwd();
+  const cliEntrypoint = path.join(
+    extensionRoot,
+    "assets",
+    "vendor",
+    packageName,
+    "dist",
+    "index.js",
+  );
 
   return {
     file: process.execPath,
