@@ -1,9 +1,10 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import {
+  createPackageInvocation,
   normalizeCommandError,
-  shellQuote,
   type CcusageResult,
+  type PackageInvocation,
 } from "../../common/lib/command";
 
 export {
@@ -13,26 +14,14 @@ export {
 
 const execFileAsync = promisify(execFile);
 
-export type CcusageInvocation = {
-  file: string;
-  args: string[];
-  commandText: string;
-};
+export type CcusageInvocation = PackageInvocation;
 
 export type CcusageReport = "daily" | "blocks";
 
 export const createCcusageInvocation = (
   report: CcusageReport = "daily",
-): CcusageInvocation => {
-  const ccusageArgs = ["ccusage@latest", report, "--json"];
-  const commandText = `npx ${ccusageArgs.join(" ")}`;
-
-  return {
-    file: "/bin/zsh",
-    args: ["-lc", `${shellQuote("npx")} ${ccusageArgs.join(" ")}`],
-    commandText,
-  };
-};
+): CcusageInvocation =>
+  createPackageInvocation("ccusage", [report, "--json"]);
 
 export const runCcusageDaily = async (): Promise<CcusageResult> => {
   const invocation = createCcusageInvocation("daily");

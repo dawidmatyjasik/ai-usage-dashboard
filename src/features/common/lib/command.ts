@@ -8,8 +8,24 @@ export type CcusageCommandError = Error & {
   stderr?: string;
 };
 
-export const shellQuote = (value: string): string =>
-  `'${value.replaceAll("'", "'\\''")}'`;
+export type PackageInvocation = {
+  file: string;
+  args: string[];
+  commandText: string;
+};
+
+export const createPackageInvocation = (
+  packageName: string,
+  args: string[],
+): PackageInvocation => {
+  const cliEntrypoint = require.resolve(packageName);
+
+  return {
+    file: process.execPath,
+    args: [cliEntrypoint, ...args],
+    commandText: `${packageName} ${args.join(" ")}`,
+  };
+};
 
 export const normalizeCommandError = (
   commandText: string,

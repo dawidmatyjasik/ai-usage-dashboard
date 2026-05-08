@@ -8,7 +8,7 @@ export const renderErrorMarkdown = (
     "command" in error &&
     typeof error.command === "string"
       ? error.command
-      : "npx ccusage@latest daily --json";
+      : "ccusage daily --json";
   const details =
     error &&
     typeof error === "object" &&
@@ -34,14 +34,14 @@ ${details.trim() || "No error details were returned."}
 
 ## How to Fix
 
-Make sure Node.js and npm are available in the environment Raycast uses. The extension runs \`npx ccusage@latest daily --json\`, so users do not need to install \`ccusage\` globally.
+The extension runs the bundled \`ccusage\` package with Raycast's Node runtime, so users do not need to install \`ccusage\` or \`npx\` globally.
 `;
 };
 
 export const renderInvalidJsonMarkdown = (
   rawOutput: string,
   error: Error,
-  command = "npx ccusage@latest daily --json",
+  command = "ccusage daily --json",
   toolName = "ccusage",
 ): string => `# Invalid ${toolName} Output
 

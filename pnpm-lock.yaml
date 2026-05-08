@@ -8,8 +8,14 @@ importers:
 
   .:
     dependencies:
+      '@ccusage/amp':
+        specifier: ^18.0.11
+        version: 18.0.11
+      '@ccusage/codex':
+        specifier: ^18.0.11
+        version: 18.0.11
       '@raycast/api':
-        specifier: latest
+        specifier: ^1.104.15
         version: 1.104.15(@types/node@22.19.17)(@types/react@19.0.10)
       '@tanstack/react-query':
         specifier: ^5.100.9
@@ -17,9 +23,12 @@ importers:
       '@tanstack/react-query-persist-client':
         specifier: ^5.100.9
         version: 5.100.9(@tanstack/react-query@5.100.9(react@19.0.0))(react@19.0.0)
+      ccusage:
+        specifier: ^18.0.11
+        version: 18.0.11
     devDependencies:
       '@raycast/eslint-config':
-        specifier: latest
+        specifier: ^2.1.1
         version: 2.1.1(eslint@10.3.0)(prettier@3.8.3)(typescript@6.0.3)
       '@types/node':
         specifier: 22.19.17
@@ -28,19 +37,29 @@ importers:
         specifier: 19.0.10
         version: 19.0.10
       eslint:
-        specifier: latest
+        specifier: ^10.3.0
         version: 10.3.0
       prettier:
-        specifier: latest
+        specifier: ^3.8.3
         version: 3.8.3
       typescript:
-        specifier: latest
+        specifier: ^6.0.3
         version: 6.0.3
       vitest:
-        specifier: latest
+        specifier: ^4.1.5
         version: 4.1.5(@types/node@22.19.17)(vite@8.0.11(@types/node@22.19.17)(esbuild@0.27.7))
 
 packages:
+
+  '@ccusage/amp@18.0.11':
+    resolution: {integrity: sha512-Xv6mscx0irnMA2oPSHx1v4J+ygFGHbBbqvtC+a5wknCqLQ55Qt6Px/17CjTH0oXhtxYjo+Aog3Vl8V0Tpug2Zw==}
+    engines: {node: '>=20.19.4'}
+    hasBin: true
+
+  '@ccusage/codex@18.0.11':
+    resolution: {integrity: sha512-/S0dyaO3yDegtGXTaMhu1ZyT3JbSuHsiUiIu9uP6UmqIAtSd9DOko1qkM6K1roePbF/rlk596GDHW1f0664D3A==}
+    engines: {node: '>=20.19.4'}
+    hasBin: true
 
   '@emnapi/core@1.10.0':
     resolution: {integrity: sha512-yq6OkJ4p82CAfPl0u9mQebQHKPJkY7WrIuk205cTYnYe+k2Z8YBh11FrbRG/H6ihirqcacOgl2BIO8oyMQLeXw==}
@@ -731,6 +750,11 @@ packages:
     resolution: {integrity: sha512-VZznLgtwhn+Mact9tfiwx64fA9erHH/MCXEUfB/0bX/6Fz6ny5EGTXYltMocqg4xFAQZtnO3DHWWXi8RiuN7cQ==}
     engines: {node: 18 || 20 || >=22}
 
+  ccusage@18.0.11:
+    resolution: {integrity: sha512-QIFCY2gh06vjWelND1gDwJxrniAcNkPw0OHUhz985iE7FIEf738YVzxUKQMKhA2fO9CIJCz0dSpnyIufaKdjdA==}
+    engines: {node: '>=20.19.4'}
+    hasBin: true
+
   chai@6.2.2:
     resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
     engines: {node: '>=18'}
@@ -1372,6 +1396,10 @@ packages:
 
 snapshots:
 
+  '@ccusage/amp@18.0.11': {}
+
+  '@ccusage/codex@18.0.11': {}
+
   '@emnapi/core@1.10.0':
     dependencies:
       '@emnapi/wasi-threads': 1.2.1
@@ -1996,6 +2024,8 @@ snapshots:
   brace-expansion@5.0.5:
     dependencies:
       balanced-match: 4.0.4
+
+  ccusage@18.0.11: {}
 
   chai@6.2.2: {}
 

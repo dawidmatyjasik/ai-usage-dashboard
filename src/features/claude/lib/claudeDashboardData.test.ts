@@ -36,16 +36,16 @@ describe("loadAiUsageDashboardData", () => {
   it("loads daily and block data into dashboard state", async () => {
     const data = await loadAiUsageDashboardData({
       runBlocks: async () => ({
-        command: "npx ccusage@latest blocks --json",
+        command: "ccusage blocks --json",
         stdout: blocksStdout,
       }),
       runDaily: async () => ({
-        command: "npx ccusage@latest daily --json",
+        command: "ccusage daily --json",
         stdout: dailyStdout,
       }),
     });
 
-    expect(data.summary.today.costUSD).toBe(2.5);
+    expect(data.summary.total.costUSD).toBe(2.5);
     expect(data.currentBlock?.id).toBe("2026-05-07T08:00:00.000Z");
     expect(JSON.parse(data.rawJson)).toMatchObject({
       daily: { daily: expect.any(Array) },
@@ -57,11 +57,11 @@ describe("loadAiUsageDashboardData", () => {
     await expect(
       loadAiUsageDashboardData({
         runBlocks: async () => ({
-          command: "npx ccusage@latest blocks --json",
+          command: "ccusage blocks --json",
           stdout: blocksStdout,
         }),
         runDaily: async () => ({
-          command: "npx ccusage@latest daily --json",
+          command: "ccusage daily --json",
           stdout: JSON.stringify({ nope: [] }),
         }),
       }),

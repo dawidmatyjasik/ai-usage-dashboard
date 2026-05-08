@@ -1,29 +1,18 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import {
+  createPackageInvocation,
   normalizeCommandError,
-  shellQuote,
   type CcusageResult,
+  type PackageInvocation,
 } from "../../common/lib/command";
 
 const execFileAsync = promisify(execFile);
 
-export type CodexInvocation = {
-  file: string;
-  args: string[];
-  commandText: string;
-};
+export type CodexInvocation = PackageInvocation;
 
-export const createCodexInvocation = (): CodexInvocation => {
-  const codexArgs = ["@ccusage/codex@latest", "daily", "--json"];
-  const commandText = `npx ${codexArgs.join(" ")}`;
-
-  return {
-    file: "/bin/zsh",
-    args: ["-lc", `${shellQuote("npx")} ${codexArgs.join(" ")}`],
-    commandText,
-  };
-};
+export const createCodexInvocation = (): CodexInvocation =>
+  createPackageInvocation("@ccusage/codex", ["daily", "--json"]);
 
 export const runCodexDaily = async (): Promise<CcusageResult> => {
   const invocation = createCodexInvocation();
