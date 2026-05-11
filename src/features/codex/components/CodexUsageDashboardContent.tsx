@@ -16,7 +16,7 @@ const getErrorMarkdown = (error: unknown): string =>
   "markdown" in error &&
   typeof error.markdown === "string"
     ? error.markdown
-    : renderErrorMarkdown(error, "Codex Usage");
+    : renderErrorMarkdown(error, "Codex Costs");
 
 const getErrorRawJson = (error: unknown): string | undefined =>
   error &&

@@ -1,8 +1,8 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "ai-usage-dashboard",
-  "title": "AI Usage Dashboard",
-  "description": "Track local AI coding usage, tokens, and costs across Claude Code, Codex, and AMP.",
+  "name": "ai-costs-dashboard",
+  "title": "AI Costs Dashboard",
+  "description": "Track local AI coding spend across Claude Code, Codex, and AMP — daily costs, model breakdowns, and budget at a glance.",
   "icon": "icon.png",
   "author": "dawidmatyjasik",
   "categories": [
@@ -14,21 +14,21 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "claudeUsageDashboard",
-      "title": "Claude Usage",
-      "description": "Show Claude Code usage statistics",
+      "name": "claudeCostsDashboard",
+      "title": "Claude Costs",
+      "description": "Show Claude Code spending — daily costs, totals, and current billing block",
       "mode": "view"
     },
     {
-      "name": "codexUsageDashboard",
-      "title": "Codex Usage",
-      "description": "Show Codex usage statistics",
+      "name": "codexCostsDashboard",
+      "title": "Codex Costs",
+      "description": "Show Codex spending — daily costs and totals",
       "mode": "view"
     },
     {
-      "name": "ampUsageDashboard",
-      "title": "AMP Usage",
-      "description": "Show AMP usage statistics",
+      "name": "ampCostsDashboard",
+      "title": "AMP Costs",
+      "description": "Show AMP spending — daily costs and totals",
       "mode": "view"
     }
   ],

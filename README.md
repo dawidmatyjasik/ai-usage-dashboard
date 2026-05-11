@@ -1,24 +1,24 @@
-![AI Usage Dashboard preview](metadata/ai-usage-dashboard-1.png)
+![AI Costs Dashboard preview](metadata/ai-costs-dashboard-1.png)
 
-# AI Usage Dashboard
+# AI Costs Dashboard
 
-A Raycast extension that tracks your local AI coding usage - tokens, costs, and recent activity - across **Claude Code**, **Codex**, and **AMP**.
+A Raycast extension that tracks your local AI coding spend — daily costs, totals, and recent activity — across **Claude Code**, **Codex**, and **AMP**.
 
 ## Features
 
 - **Three dashboards** - separate commands for Claude, Codex, and AMP
-- **Usage summary** - totals for tokens and cost
-- **Recent days** - daily breakdown of activity
+- **Cost summary** - totals for spend and tokens
+- **Recent days** - daily cost breakdown
 - **Billing block** (Claude) - current 5-hour billing window status
 - **Offline-friendly** - query results are cached locally
 
 ## Commands
 
-| Command        | Description                       |
-| -------------- | --------------------------------- |
-| `Claude Usage` | Show Claude Code usage statistics |
-| `Codex Usage`  | Show Codex usage statistics       |
-| `AMP Usage`    | Show AMP usage statistics         |
+| Command        | Description                                |
+| -------------- | ------------------------------------------ |
+| `Claude Costs` | Show Claude Code spending and billing block |
+| `Codex Costs`  | Show Codex spending and daily totals        |
+| `AMP Costs`    | Show AMP spending and daily totals          |
 
 ## License
 
